@@ -1,5 +1,6 @@
 import { Router } from 'express';
 
+import EventController from './app/controllers/EventController';
 import SessionController from './app/controllers/SessionController';
 import UserController from './app/controllers/UserController';
 
@@ -15,5 +16,10 @@ routes.use(ensureAuthenticated);
 
 routes.put('/user/update', UserController.update);
 routes.delete('/user/delete', UserController.delete);
+
+routes.get('/event', EventController.list);
+routes.post('/event/create', EventController.create);
+routes.put('/event/update/:id', EventController.update);
+routes.delete('/event/delete/:id', EventController.delete);
 
 export default routes;

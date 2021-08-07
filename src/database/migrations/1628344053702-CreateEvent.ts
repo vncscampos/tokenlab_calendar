@@ -5,7 +5,7 @@ export class CreateUser1628283510295 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'users',
+        name: 'events',
         columns: [
           {
             name: 'id',
@@ -13,20 +13,21 @@ export class CreateUser1628283510295 implements MigrationInterface {
             isPrimary: true
           },
           {
-            name: 'name',
+            name: 'description',
             type: 'varchar',
+          },
+          {
+            name: 'user_id',
+            type: 'uuid',
             isNullable: false,
           },
           {
-            name: 'email',
-            type: 'varchar',
-            isNullable: false,
-            isUnique: true,
+            name: 'start_date',
+            type: 'timestamp with time zone',
           },
           {
-            name: 'password',
-            type: 'varchar',
-            isNullable: false,
+            name: 'end_date',
+            type: 'timestamp with time zone',
           },
           {
             name: 'created_at',
@@ -38,13 +39,23 @@ export class CreateUser1628283510295 implements MigrationInterface {
             type: 'timestamp',
             default: 'now()'
           }
+        ],
+        foreignKeys: [
+          {
+            name: 'FKUser',
+            referencedTableName: 'users',
+            referencedColumnNames: ['id'],
+            columnNames: ['user_id'],
+            onDelete: 'SET NULL',
+            onUpdate: 'SET NULL'
+          }
         ]
       })
     );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('users');
+    await queryRunner.dropTable('events');
   }
 
 }
