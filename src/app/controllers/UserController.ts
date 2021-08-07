@@ -39,7 +39,7 @@ class UserController {
 
   async update(req: Request, res: Response): Promise<Response> {
     try {
-      const { id } = req.params;
+      const { id } = req.user;
 
       const { name, email, password } = req.body;
 
@@ -55,7 +55,7 @@ class UserController {
 
   async delete(req: Request, res: Response): Promise<Response> {
     try {
-      const { id } = req.params;
+      const { id } = req.user;
 
       const userService = new UserService();
 
