@@ -52,7 +52,20 @@ const Home: React.FC = () => {
           {events.map((event) => (
             <li key={event.id}>
               <div className="event-header">
-                <strong>{event.start_date} - {event.end_date}</strong>
+                <strong>
+                  {new Date(event.start_date).toUTCString().split(" ")[1]}{" "}
+                  {new Date(event.start_date).toUTCString().split(" ")[2]}{" "}
+                  {new Date(event.start_date).getHours()}:
+                  {String(new Date(event.start_date).getMinutes()).padStart(
+                    2,
+                    "0"
+                  )}
+                  {" às "}
+                  {new Date(event.end_date).getHours()}:
+                  {String(new Date(event.end_date).getMinutes()).padStart(2, "0")}{" "}
+                  {new Date(event.end_date).toUTCString().split(" ")[1]}{" "}
+                  {new Date(event.end_date).toUTCString().split(" ")[2]}{" "}
+                </strong>
                 <div>
                   <FaPencilAlt size={18} style={{ color: colors.soft_blue }} />
                   <FaTrashAlt
