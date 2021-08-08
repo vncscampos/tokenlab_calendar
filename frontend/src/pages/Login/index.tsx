@@ -20,7 +20,10 @@ const Login: React.FC = () => {
     await api
       .post("/session", { email, password })
       .then((response) => {
-        history.push("/");
+        const { token, user } = response.data;
+        localStorage.setItem('JWT', token);
+        localStorage.setItem('user', JSON.stringify(user));
+        history.push("/home");
       })
       .catch(() => {
         alert("Erro no login.");

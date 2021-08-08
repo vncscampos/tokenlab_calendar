@@ -21,7 +21,7 @@ const Register: React.FC = () => {
     await api
       .post("/user", { name, email, password })
       .then((response) => {
-        history.push("/");
+        history.push("/home");
       })
       .catch((error) => {
         alert("Erro ao criar usuário.");

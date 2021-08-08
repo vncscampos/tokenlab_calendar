@@ -4,15 +4,15 @@ import { Switch, Route } from "react-router-dom";
 import LandingPage from "../pages/LandingPage";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
-
-import AuthContext from '../context/AuthContext';
+import Home from "../pages/Home";
 
 const Routes: React.FC = () => (
-    <Switch>
-        <Route path="/" exact component={LandingPage} />
-        <Route path="/login" component={Login} />
-        <Route path="/register" component={Register} />
-    </Switch>
+  <Switch>
+    <Route path="/" exact component={LandingPage} />
+    <Route path="/login" component={Login} />
+    <Route path="/register" component={Register} />
+    <Route path="/home" component={Home} />
+  </Switch>
 );
 
 export default Routes;

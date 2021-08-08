@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import colors from './colors';
 
 export default createGlobalStyle`
     * {
@@ -7,6 +8,10 @@ export default createGlobalStyle`
         box-sizing: border-box;
         outline: 0;
         border: 0;
+    }
+
+    body {
+        background-color: ${colors.background};
     }
 
     input, button, a {
