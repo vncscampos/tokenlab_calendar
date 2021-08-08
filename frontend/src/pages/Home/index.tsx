@@ -37,6 +37,21 @@ const Home: React.FC = () => {
       });
   }
 
+  async function handleRemove(id: string) {
+    const token = localStorage.getItem("JWT");
+
+    api.defaults.headers.Authorization = `Bearer ${token}`;
+
+    await api
+      .delete(`/event/${id}`)
+      .then(() => {
+        loadEvents();
+      })
+      .catch(() => {
+        alert("Não foi possivel remover o evento");
+      });
+  }
+
   return (
     <Container>
       <Header>
@@ -47,7 +62,10 @@ const Home: React.FC = () => {
         </Link>
       </Header>
       <Content>
-        <h1>Meus eventos</h1>
+        <div className="content-header">
+          <h1>Meus eventos</h1>
+          <Link to="/createEvent">Criar evento</Link>
+        </div>
         <ul>
           {events.map((event) => (
             <li key={event.id}>
@@ -62,15 +80,26 @@ const Home: React.FC = () => {
                   )}
                   {" às "}
                   {new Date(event.end_date).getHours()}:
-                  {String(new Date(event.end_date).getMinutes()).padStart(2, "0")}{" "}
+                  {String(new Date(event.end_date).getMinutes()).padStart(
+                    2,
+                    "0"
+                  )}{" "}
                   {new Date(event.end_date).toUTCString().split(" ")[1]}{" "}
                   {new Date(event.end_date).toUTCString().split(" ")[2]}{" "}
                 </strong>
                 <div>
-                  <FaPencilAlt size={18} style={{ color: colors.soft_blue }} />
+                  <FaPencilAlt
+                    size={18}
+                    style={{ color: colors.soft_blue, cursor: "pointer" }}
+                  />
                   <FaTrashAlt
                     size={18}
-                    style={{ marginLeft: 24, color: colors.red }}
+                    style={{
+                      marginLeft: 24,
+                      color: colors.red,
+                      cursor: "pointer",
+                    }}
+                    onClick={() => handleRemove(event.id)}
                   />
                 </div>
               </div>

@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { shade } from "polished";
+
 import colors from '../../styles/colors';
 
 export const Container = styled.div`
@@ -10,14 +12,13 @@ export const Header = styled.header`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 10rem;
+    padding: 2.5rem 10rem;
     height: 10vh;
 
     a {
         display: flex;
         align-items: center;
         color: #ffff;
-        text-decoration: none;
     }
 
     a p {
@@ -32,11 +33,28 @@ export const Content = styled.div`
     color: ${colors.dark_blue};
     font-family: 'Ubuntu', sans-serif;
 
+    .content-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 36px;
+    }
+
+    a {
+        background-color: ${colors.soft_blue};
+        border-radius: 6px;
+        color: #fff;
+        padding: 15px 35px;
+    }
+
+    a:hover {
+        background: ${shade(0.2, colors.soft_blue)};
+    }
+
     h1 {
         font-family: 'Ubuntu', sans-serif;
         font-weight: 500;
         color: ${colors.dark_blue};
-        margin-bottom: 36px;
     }
 
     ul {

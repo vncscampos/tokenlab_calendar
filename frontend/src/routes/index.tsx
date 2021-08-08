@@ -5,6 +5,7 @@ import LandingPage from "../pages/LandingPage";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Home from "../pages/Home";
+import CreateEvent from "../pages/CreateEvent";
 
 const Routes: React.FC = () => (
   <Switch>
@@ -12,6 +13,7 @@ const Routes: React.FC = () => (
     <Route path="/login" component={Login} />
     <Route path="/register" component={Register} />
     <Route path="/home" component={Home} />
+    <Route path="/createEvent" component={CreateEvent} />
   </Switch>
 );
 

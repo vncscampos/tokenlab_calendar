@@ -17,6 +17,7 @@ export default createGlobalStyle`
     input, button, a {
         font-family: 'Ubuntu', sans-serif;
         font-weight: 500;
+        text-decoration: none;
     }
 
     button {
