@@ -8,18 +8,18 @@ import ensureAuthenticated from './app/middlewares/ensureAuthenticated';
 
 const routes = Router();
 
-routes.post('/user/create', UserController.create);
+routes.post('/user', UserController.create);
 routes.post('/session', SessionController.store);
 routes.get('/user/:id', UserController.read);
 
 routes.use(ensureAuthenticated);
 
-routes.put('/user/update', UserController.update);
-routes.delete('/user/delete', UserController.delete);
+routes.put('/user/:id', UserController.update);
+routes.delete('/user/:id', UserController.delete);
 
 routes.get('/event', EventController.list);
-routes.post('/event/create', EventController.create);
-routes.put('/event/update/:id', EventController.update);
-routes.delete('/event/delete/:id', EventController.delete);
+routes.post('/event', EventController.create);
+routes.put('/event/:id', EventController.update);
+routes.delete('/event/:id', EventController.delete);
 
 export default routes;

@@ -5,6 +5,8 @@ import LandingPage from "../pages/LandingPage";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 
+import AuthContext from '../context/AuthContext';
+
 const Routes: React.FC = () => (
     <Switch>
         <Route path="/" exact component={LandingPage} />
