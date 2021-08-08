@@ -19,10 +19,10 @@ const LandingPage: React.FC = () => {
           Organize seu calendário de <br /> eventos
         </h2>
         <div className="button-container">
-          <a id="register">
+          <Link to="/register" id="register">
             <FaUserPlus size={24} />
             Cadastrar
-          </a>
+          </Link>
           <Link to="/login" id="login">
             <FaSignInAlt size={24} />
             Logar
