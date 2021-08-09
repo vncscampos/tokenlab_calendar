@@ -15,13 +15,14 @@ export const Header = styled.header`
     padding: 2.5rem 10rem;
     height: 10vh;
 
-    a {
+    span {
         display: flex;
         align-items: center;
         color: #ffff;
+        cursor: pointer;
     }
 
-    a p {
+    span p {
         font-family: 'Ubuntu', sans-serif;
         font-weight: 500;
         margin-left: 8px;

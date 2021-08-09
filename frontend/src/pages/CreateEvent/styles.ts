@@ -18,7 +18,7 @@ export const Content = styled.div`
     color: ${colors.background};
     box-shadow: 0 0 100px rgba(0,0,0,0.1);
     border-radius: 6px;
-    width: 80vw;
+    width: 65vw;
     padding: 40px 96px;
 
     a {

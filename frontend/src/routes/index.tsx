@@ -13,7 +13,7 @@ const Routes: React.FC = () => (
     <Route path="/login" component={Login} />
     <Route path="/register" component={Register} />
     <Route path="/home" component={Home} />
-    <Route path="/createEvent" component={CreateEvent} />
+    <Route path="/event" component={CreateEvent} />
   </Switch>
 );
 

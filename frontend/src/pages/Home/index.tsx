@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { FaSignOutAlt, FaTrashAlt, FaPencilAlt } from "react-icons/fa";
 
 import { Container, Header, Content } from "./styles";
 import logoImg from "../../assets/logo.svg";
 import colors from "../../styles/colors";
+
+import formatDate from "../../utils/formatDate";
 
 import api from "../../services/api";
 
@@ -16,6 +18,7 @@ interface IEvent {
 }
 
 const Home: React.FC = () => {
+  const history = useHistory();
   const [events, setEvents] = useState<IEvent[]>([]);
 
   useEffect(() => {
@@ -52,44 +55,38 @@ const Home: React.FC = () => {
       });
   }
 
+  async function handleUpdate(event: IEvent) {
+    history.push("/event", event);
+  }
+
+  function handleLogout() {
+    localStorage.clear();
+    history.push("/");
+  }
+
   return (
     <Container>
       <Header>
         <img src={logoImg} />
-        <Link to="/">
+        <span onClick={handleLogout}>
           <FaSignOutAlt size={24} />
           <p>Sair</p>
-        </Link>
+        </span>
       </Header>
       <Content>
         <div className="content-header">
           <h1>Meus eventos</h1>
-          <Link to="/createEvent">Criar evento</Link>
+          <Link to="/event">Criar evento</Link>
         </div>
         <ul>
           {events.map((event) => (
             <li key={event.id}>
               <div className="event-header">
-                <strong>
-                  {new Date(event.start_date).toUTCString().split(" ")[1]}{" "}
-                  {new Date(event.start_date).toUTCString().split(" ")[2]}{" "}
-                  {new Date(event.start_date).getHours()}:
-                  {String(new Date(event.start_date).getMinutes()).padStart(
-                    2,
-                    "0"
-                  )}
-                  {" às "}
-                  {new Date(event.end_date).getHours()}:
-                  {String(new Date(event.end_date).getMinutes()).padStart(
-                    2,
-                    "0"
-                  )}{" "}
-                  {new Date(event.end_date).toUTCString().split(" ")[1]}{" "}
-                  {new Date(event.end_date).toUTCString().split(" ")[2]}{" "}
-                </strong>
+                <strong>{formatDate(event.start_date, event.end_date)}</strong>
                 <div>
                   <FaPencilAlt
                     size={18}
+                    onClick={() => handleUpdate(event)}
                     style={{ color: colors.soft_blue, cursor: "pointer" }}
                   />
                   <FaTrashAlt
