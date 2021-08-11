@@ -19,9 +19,11 @@ class EventController {
         end_date
       });
 
-      const guestService = new GuestService();
+      if(guest) {
+        const guestService = new GuestService();
 
-      const invites = await guestService.create(guest, event.id);
+        var invites = await guestService.create(guest, event.id);
+      }
 
       return res.json({ event, invites });
     } catch (err) {
