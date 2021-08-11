@@ -3,9 +3,8 @@ import styled from 'styled-components';
 import colors from '../../styles/colors';
 
 export const Container = styled.div`
-    background: ${colors.background};
+    background: linear-gradient(76.6deg, #FD52FF 7.16%, #00DBDE 91.96%, #00DBDE 91.96%);
     width: 100%;
-    max-width: 1120px;
     height: 100vh;
     margin: 0 auto;
 
@@ -15,10 +14,10 @@ export const Container = styled.div`
 `;
 
 export const Content = styled.div`
-    color: ${colors.background};
-    box-shadow: 0 0 100px rgba(0,0,0,0.1);
+    background-color: ${colors.background};
+    box-shadow: 0 0 100px rgba(0,0,0,0.3);
     border-radius: 6px;
-    width: 65vw;
+    width: 70vw;
     padding: 40px 96px;
 
     a {
@@ -80,6 +79,21 @@ export const Content = styled.div`
         border-radius: 6px;
         border: 0.1px solid #a4a4a4; 
         color: ${colors.gray};
+    }
+
+    input[type="text"] {
+        width:100%;
+        margin-bottom: 10px;
+        border: 0.1px solid #a4a4a4;
+
+        font-family: 'Ubuntu', sans-serif;
+        color: ${colors.gray};
+
+        &::placeholder {
+            font-family: 'Ubuntu', sans-serif;
+            color: ${colors.gray};
+        }
+
     }
 `;
 

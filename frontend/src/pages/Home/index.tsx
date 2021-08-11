@@ -18,26 +18,40 @@ interface IEvent {
 }
 
 const Home: React.FC = () => {
+  const [isInvite, setIsInvite] = useState(false);
   const history = useHistory();
   const [events, setEvents] = useState<IEvent[]>([]);
 
   useEffect(() => {
     loadEvents();
-  }, []);
+  }, [isInvite]);
 
   async function loadEvents() {
     const token = localStorage.getItem("JWT");
 
     api.defaults.headers.Authorization = `Bearer ${token}`;
 
-    await api
-      .get("/event")
-      .then((response) => {
-        setEvents(response.data);
-      })
-      .catch(() => {
-        alert("Não foi possivel carregar os eventos");
-      });
+    if (!isInvite) {
+      await api
+        .get("/event")
+        .then((response) => {
+          setEvents(response.data);
+        })
+        .catch((err) => {
+          const { error } = err.response.data;
+          alert(`${error}`);
+        });
+    } else {
+      await api
+        .get("/invite")
+        .then((response) => {
+          setEvents(response.data);
+        })
+        .catch((err) => {
+          const { error } = err.response.data;
+          alert(`${error}`);
+        });
+    }
   }
 
   async function handleRemove(id: string) {
@@ -45,14 +59,27 @@ const Home: React.FC = () => {
 
     api.defaults.headers.Authorization = `Bearer ${token}`;
 
-    await api
-      .delete(`/event/${id}`)
-      .then(() => {
-        loadEvents();
-      })
-      .catch(() => {
-        alert("Não foi possivel remover o evento");
-      });
+    if (!isInvite) {
+      await api
+        .delete(`/event/${id}`)
+        .then(() => {
+          loadEvents();
+        })
+        .catch((err) => {
+          const { error } = err.response.data;
+          alert(`${error}`);
+        });
+    } else {
+      await api
+        .delete(`/invite/${id}`)
+        .then(() => {
+          loadEvents();
+        })
+        .catch((err) => {
+          const { error } = err.response.data;
+          alert(`${error}`);
+        });
+    }
   }
 
   async function handleUpdate(event: IEvent) {
@@ -68,14 +95,23 @@ const Home: React.FC = () => {
     <Container>
       <Header>
         <img src={logoImg} />
-        <span onClick={handleLogout}>
-          <FaSignOutAlt size={24} />
-          <p>Sair</p>
-        </span>
+        <div>
+          <span onClick={handleLogout}>
+            <FaSignOutAlt size={24} />
+            <p>Sair</p>
+          </span>
+        </div>
       </Header>
       <Content>
         <div className="content-header">
-          <h1>Meus eventos</h1>
+          <div className="title-header">
+            <button onClick={() => setIsInvite(false)}>
+              {isInvite ? <h2>Meus Eventos</h2> : <h1>Meus Eventos</h1>}
+            </button>
+            <button onClick={() => setIsInvite(true)}>
+              {isInvite ? <h1>Meus Convites</h1> : <h2>Meus Convites</h2>}
+            </button>
+          </div>
           <Link to="/event">Criar evento</Link>
         </div>
         <ul>
@@ -84,11 +120,15 @@ const Home: React.FC = () => {
               <div className="event-header">
                 <strong>{formatDate(event.start_date, event.end_date)}</strong>
                 <div>
-                  <FaPencilAlt
-                    size={18}
-                    onClick={() => handleUpdate(event)}
-                    style={{ color: colors.soft_blue, cursor: "pointer" }}
-                  />
+                  {isInvite ? (
+                    <></>
+                  ) : (
+                    <FaPencilAlt
+                      size={18}
+                      onClick={() => handleUpdate(event)}
+                      style={{ color: colors.soft_blue, cursor: "pointer" }}
+                    />
+                  )}
                   <FaTrashAlt
                     size={18}
                     style={{

@@ -6,20 +6,16 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ManyToOne,
-  JoinColumn,
-  OneToMany
+  JoinColumn
 } from 'typeorm';
 
 import User from './User';
-import Guest from './Guest';
+import Event from './Event';
 
-@Entity('events')
-class Event {
+@Entity('guests')
+class Guest {
   @PrimaryColumn()
   id: string;
-
-  @Column()
-  description: string;
 
   @JoinColumn({ name: 'user_id' })
   @ManyToOne(() => User)
@@ -28,14 +24,12 @@ class Event {
   @Column()
   user_id: string;
 
-  @Column()
-  start_date: Date;
+  @JoinColumn({ name: 'event_id' })
+  @ManyToOne(() => Event)
+  event: Event;
 
   @Column()
-  end_date: Date;
-
-  @OneToMany(() => Guest, guest => guest.event)
-  guest: Guest[]
+  event_id: string;
 
   @CreateDateColumn()
   created_at: Date;
@@ -50,4 +44,4 @@ class Event {
   }
 }
 
-export default Event;
+export default Guest;

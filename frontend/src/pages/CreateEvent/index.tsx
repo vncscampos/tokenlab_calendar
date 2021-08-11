@@ -24,6 +24,7 @@ const CreateEvent: React.FC = () => {
   const [startDate, setStartDate] = useState("");
   const [endHour, setEndHour] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [guest, setGuest] = useState("");
   const [update, setUpdate] = useState(false);
 
   const state = useLocation().state as IEvent;
@@ -65,22 +66,24 @@ const CreateEvent: React.FC = () => {
 
     if (!update) {
       await api
-        .post("/event", { description, start_date, end_date })
+        .post("/event", { description, start_date, end_date, guest })
         .then((response) => {
           alert("Evento criado com sucesso!");
           window.location.reload();
         })
-        .catch(() => {
-          alert("Não foi possivel criar evento!");
+        .catch((err) => {
+          const { error } = err.response.data;
+        alert(`${error}`);
         });
     } else {
       await api
-        .put(`/event/${state.id}`, { description, start_date, end_date })
+        .put(`/event/${state.id}`, { description, start_date, end_date, guest })
         .then((response) => {
           alert("Evento atualizado com sucesso!");
         })
-        .catch(() => {
-          alert("Não foi atualizar criar evento!");
+        .catch((err) => {
+          const { error } = err.response.data;
+        alert(`${error}`);
         });
     }
   }
@@ -129,6 +132,12 @@ const CreateEvent: React.FC = () => {
                   onChange={(e) => setEndDate(e.target.value)}
                 />
               </div>
+              <input
+                  type="text"
+                  value={guest}
+                  placeholder="Digite o email dos convidados"
+                  onChange={(e) => setGuest(e.target.value)}
+                />
               {update ? (
                 <Button type="submit">Atualizar evento</Button>
               ) : (

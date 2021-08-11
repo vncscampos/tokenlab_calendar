@@ -21,12 +21,13 @@ const Login: React.FC = () => {
       .post("/session", { email, password })
       .then((response) => {
         const { token, user } = response.data;
-        localStorage.setItem('JWT', token);
-        localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem("JWT", token);
+        localStorage.setItem("user", JSON.stringify(user));
         history.push("/home");
       })
-      .catch(() => {
-        alert("Erro no login.");
+      .catch((err) => {
+        const { error } = err.response.data;
+        alert(`${error}`);
       });
   }
 

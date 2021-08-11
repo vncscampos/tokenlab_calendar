@@ -1,7 +1,5 @@
 import { v4 as uuid } from 'uuid';
-import { Entity, Column, PrimaryColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
-
-import Event from './Event';
+import { Entity, Column, PrimaryColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity('users')
 class User {

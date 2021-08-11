@@ -1,11 +1,12 @@
 import { Request, Response } from 'express';
 
 import EventService from '../services/EventService';
+import GuestService from '../services/GuestService';
 
 class EventController {
   async create(req: Request, res: Response): Promise<Response> {
     try {
-      const { description, start_date, end_date } = req.body;
+      const { description, start_date, end_date, guest } = req.body;
 
       const { id } = req.user;
 
@@ -18,7 +19,11 @@ class EventController {
         end_date
       });
 
-      return res.json(event);
+      const guestService = new GuestService();
+
+      const invites = await guestService.create(guest, event.id);
+
+      return res.json({ event, invites });
     } catch (err) {
       return res.status(400).json({ error: err.message })
     }
@@ -44,13 +49,19 @@ class EventController {
 
       const { id } = req.params;
 
-      const { description, start_date, end_date } = req.body;
+      const { description, start_date, end_date, guest } = req.body;
 
       const eventService = new EventService();
 
       const event = await eventService.update(id, { user_id, description, start_date, end_date });
 
-      return res.json(event);
+      if (guest) {
+        const guestService = new GuestService();
+
+        var invites = await guestService.create(guest, event.id);
+      }
+
+      return res.json({ event, invites });
     } catch (err) {
       return res.status(400).json({ error: err.message })
     }

@@ -3,6 +3,7 @@ import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
 
 import authConfig from '../../config/auth';
+
 import User from '../entities/User';
 import UserRepository from '../Repositories/UserRepository';
 

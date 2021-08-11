@@ -34,6 +34,25 @@ export const Content = styled.div`
     color: ${colors.dark_blue};
     font-family: 'Ubuntu', sans-serif;
 
+    .title-header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    h1 {
+        font-size: 21.5pt;
+    }
+
+    h2 {
+        font-weight: 300;
+        font-size: 20pt;
+    }
+
+    .title-header button {
+        margin-right: 21px;
+    }
+
     .content-header {
         display: flex;
         justify-content: space-between;

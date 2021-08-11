@@ -23,8 +23,9 @@ const Register: React.FC = () => {
       .then((response) => {
         history.push("/login");
       })
-      .catch((error) => {
-        alert("Erro ao criar usuário.");
+      .catch((err) => {
+        const { error } = err.response.data;
+        alert(`${error}`);
       });
   }
 
