@@ -2,6 +2,7 @@
 
 ## Como rodar a aplicação
 * Para rodar o backend localmente:
+
 Crie um container do docker com PostgreSQL
 ```
 docker run --name tokenlab_postgres -e POSTGRES_PASSWORD=tokenlab -p 5432:5432 -d postgres
