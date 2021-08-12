@@ -38,16 +38,10 @@ const CreateEvent: React.FC = () => {
       setStartHour(date[0]);
       setEndHour(date[3]);
 
-      let [year, day, month] = new Date(date[1])
-        .toISOString()
-        .split("T")[0]
-        .split("-");
+      let [day, month, year] = date[1].split("/");
       setStartDate(`${year}-${month}-${day}`);
 
-      [year, day, month] = new Date(date[4])
-        .toISOString()
-        .split("T")[0]
-        .split("-");
+      [day, month, year] = date[4].split("/");
       setEndDate(`${year}-${month}-${day}`);
 
       setUpdate(true);
@@ -73,7 +67,7 @@ const CreateEvent: React.FC = () => {
         })
         .catch((err) => {
           const { error } = err.response.data;
-        alert(`${error}`);
+          alert(`${error}`);
         });
     } else {
       await api
@@ -83,7 +77,7 @@ const CreateEvent: React.FC = () => {
         })
         .catch((err) => {
           const { error } = err.response.data;
-        alert(`${error}`);
+          alert(`${error}`);
         });
     }
   }
@@ -133,11 +127,11 @@ const CreateEvent: React.FC = () => {
                 />
               </div>
               <input
-                  type="text"
-                  value={guest}
-                  placeholder="Digite o email dos convidados"
-                  onChange={(e) => setGuest(e.target.value)}
-                />
+                type="text"
+                value={guest}
+                placeholder="Digite o email dos convidados"
+                onChange={(e) => setGuest(e.target.value)}
+              />
               {update ? (
                 <Button type="submit">Atualizar evento</Button>
               ) : (
